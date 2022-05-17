@@ -26,35 +26,42 @@ function HistoryPage(props) {
       {user.userData && user.userData.email === "admin@admin.com" ? (
         <>
           {usersHistory &&
-            usersHistory[0].map((item) => (
-              <>
-                <h2>
-                  {item.name} ({item.email})
-                </h2>
-                <table style={{ marginBottom: 50 }}>
-                  <thead>
-                    <tr>
-                      <th>Product</th>
-                      <th>Price</th>
-                      <th>Quantity</th>
-                      <th>Date of Purchase</th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    {item.history &&
-                      item.history.map((history) => (
-                        <tr key={item.id}>
-                          <td>{history.name}</td>
-                          <td>{history.price}</td>
-                          <td>{history.quantity}</td>
-                          <td>{moment(history.dateOfPurchase).format("DD-MM-YYYY")}</td>
+            usersHistory[0].map(
+              (item) =>
+                item.email !== "admin@admin.com" && (
+                  <>
+                    <h2>
+                      {item.name} ({item.email})
+                    </h2>
+                    <table style={{ marginBottom: 50 }}>
+                      <thead>
+                        <tr>
+                          <th>Product</th>
+                          <th>Price</th>
+                          <th>Quantity</th>
+                          <th>Date of Purchase</th>
                         </tr>
-                      ))}
-                  </tbody>
-                </table>
-              </>
-            ))}
+                      </thead>
+
+                      <tbody>
+                        {item.history &&
+                          item.history.map((history) => (
+                            <tr key={item.id}>
+                              <td>{history.name}</td>
+                              <td>{history.price}</td>
+                              <td>{history.quantity}</td>
+                              <td>
+                                {moment(history.dateOfPurchase).format(
+                                  "DD-MM-YYYY"
+                                )}
+                              </td>
+                            </tr>
+                          ))}
+                      </tbody>
+                    </table>
+                  </>
+                )
+            )}
         </>
       ) : (
         <table>
